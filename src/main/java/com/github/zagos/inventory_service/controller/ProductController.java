@@ -33,4 +33,12 @@ public class ProductController {
         products.add(product);
         return product;
     }
+
+    // 3. DELETE: Διέγραψε προϊόν με βάση το ID
+    // URL: http://localhost:8080/api/products/1
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id) {
+        // Ψάχνει στη λίστα και διαγράφει όποιο προϊόν έχει αυτό το ID
+        products.removeIf(product -> product.getId().equals(id));
+    }
 }
