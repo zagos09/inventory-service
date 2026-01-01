@@ -1,44 +1,37 @@
 package com.github.zagos.inventory_service.controller;
 
 import com.github.zagos.inventory_service.model.Product;
+import com.github.zagos.inventory_service.repository.ProductRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
 
-    // Αυτή είναι η "ψεύτικη" βάση δεδομένων μας (μια απλή λίστα στη μνήμη)
-    private List<Product> products = new ArrayList<>();
+    // 1. Dependency Injection: Ζητάμε από το Spring να μας φέρει το Repository
+    private final ProductRepository productRepository;
 
-    // Constructor: Βάζουμε μερικά ψεύτικα προϊόντα για να μην είναι άδεια η λίστα στην αρχή
-    public ProductController() {
-        products.add(new Product(1L, "iPhone 15", "Apple Smartphone", 999.99));
-        products.add(new Product(2L, "Samsung S24", "Android Smartphone", 899.99));
+    public ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
-    // 1. GET: Δώσε μου όλα τα προϊόντα
-    // URL: http://localhost:8080/api/products
+    // 2. GET: Διάβασε από τη Βάση (SELECT * FROM products)
     @GetMapping
     public List<Product> getAllProducts() {
-        return products;
+        return productRepository.findAll();
     }
 
-    // 2. POST: Πρόσθεσε νέο προϊόν
-    // URL: http://localhost:8080/api/products
+    // 3. POST: Αποθήκευσε στη Βάση (INSERT INTO products...)
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
-        products.add(product);
-        return product;
+        return productRepository.save(product);
     }
 
-    // 3. DELETE: Διέγραψε προϊόν με βάση το ID
-    // URL: http://localhost:8080/api/products/1
+    // 4. DELETE: Σβήσε από τη Βάση (DELETE FROM products WHERE id=...)
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
-        // Ψάχνει στη λίστα και διαγράφει όποιο προϊόν έχει αυτό το ID
-        products.removeIf(product -> product.getId().equals(id));
+        productRepository.deleteById(id);
     }
 }
