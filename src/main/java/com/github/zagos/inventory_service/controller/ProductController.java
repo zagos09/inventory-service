@@ -3,6 +3,7 @@ package com.github.zagos.inventory_service.controller;
 import com.github.zagos.inventory_service.model.Product;
 import com.github.zagos.inventory_service.repository.ProductRepository;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -23,9 +24,16 @@ public class ProductController {
         return productRepository.findAll();
     }
 
+    // ΝΕΟ: Αναζήτηση με ?category=Something
+    @GetMapping("/search")
+    public java.util.List<Product> searchProducts(@RequestParam String category) {
+        return productRepository.findByCategory(category);
+    }
+
     // 3. POST: Αποθήκευσε στη Βάση (INSERT INTO products...)
     @PostMapping
-    public Product createProduct(@RequestBody Product product) {
+    // Το @Valid λέει: "Πριν τρέξεις τον κώδικα, έλεγξε αν το Product τηρεί τους κανόνες"
+    public Product createProduct(@RequestBody @Valid Product product) {
         return productRepository.save(product);
     }
 

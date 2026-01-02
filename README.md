@@ -1,44 +1,21 @@
-# Inventory Service API 📦
+# 🕯️ Candle Shop Project
 
-A RESTful API for managing product inventory, built with Java and Spring Boot.
+This is the backend repository for a **Handmade Candle E-shop**.
+Currently, it provides the REST API to manage the candle inventory, including stock, scents, and categories.
 
-## 🚀 Technologies Used
-* **Java 17**
-* **Spring Boot 3** (Web, Data JPA)
-* **PostgreSQL** (Production-grade SQL Database)
-* **Lombok** (Boilerplate reduction)
+## 🚀 Technologies
+* **Java 17** & **Spring Boot 3**
+* **PostgreSQL** Database
+* **Hibernate Validator** (Data Safety)
 
-## ⚙️ Features
-This API allows you to perform CRUD operations on products:
-* **Create** new products.
-* **Read** all products.
-* **Delete** products by ID.
+## 🛒 Features
+* **Management:** Add, remove, and update candle details.
+* **Search:** Filter candles by category (e.g., Aromatic, Decoration).
+* **Validation:** Prevents invalid data (e.g., negative prices/stock).
 
-## 🔌 API Endpoints
+## ⚙️ Quick Start
+1. Ensure **PostgreSQL** is running on port `5432`.
+2. Create a database named `inventory_db`.
+3. Run the application!
 
-Base URL: `http://localhost:8080/api/products`
-
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| **GET** | `/api/products` | Get a list of all products |
-| **POST** | `/api/products` | Add a new product |
-| **DELETE** | `/api/products/{id}` | Delete a product by ID |
-
-## 🧪 How to Test (Using Terminal)
-
-### 1. Add a Product (POST)
-```bash
-curl -X POST http://localhost:8080/api/products \
--H "Content-Type: application/json" \
--d '{"name":"MacBook Pro", "description":"Apple Laptop", "price":2000.0}'
-```
-2. Get All Products (GET)
-   Open in browser: http://localhost:8080/api/products
-
-3. Delete a Product (DELETE)
-```bash
-   curl -X DELETE http://localhost:8080/api/products/1
-```
-
-📝 Setup (PostgreSQL)
-Ensure you have PostgreSQL running locally on port 5432 with a database named inventory_db. The application is configured to connect with username zagos and password 1234.
+The API will be available at: `http://localhost:8080/api/products`
